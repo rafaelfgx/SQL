@@ -1,0 +1,15 @@
+DECLARE @Users TABLE (Id INT, [Name] VARCHAR(MAX))
+
+INSERT INTO @Users VALUES (1, 'Name 1')
+INSERT INTO @Users VALUES (2, 'Name 2')
+INSERT INTO @Users VALUES (3, 'Name 3')
+INSERT INTO @Users VALUES (4, 'Name 4')
+INSERT INTO @Users VALUES (5, 'Name 5')
+
+DECLARE @Colors TABLE (Id INT, [Name] VARCHAR(MAX))
+
+INSERT INTO @Colors VALUES (1, 'Red')
+INSERT INTO @Colors VALUES (2, 'Green')
+INSERT INTO @Colors VALUES (3, 'Blue')
+
+SELECT * FROM @Users AS U CROSS JOIN @Colors AS C ORDER BY U.Name
