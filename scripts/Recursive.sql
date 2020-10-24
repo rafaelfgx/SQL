@@ -1,0 +1,32 @@
+DECLARE @Table TABLE (Id INT, IdParent INT);
+
+INSERT INTO @Table VALUES (1, NULL);
+INSERT INTO @Table VALUES (2, 1);
+INSERT INTO @Table VALUES (3, 1);
+INSERT INTO @Table VALUES (4, 2);
+INSERT INTO @Table VALUES (5, 3);
+INSERT INTO @Table VALUES (6, 3);
+INSERT INTO @Table VALUES (7, 3);
+INSERT INTO @Table VALUES (8, 4);
+INSERT INTO @Table VALUES (9, 5);
+
+;WITH CTE AS
+(
+	SELECT
+		T.Id,
+		T.IdParent,
+		1 AS [Level]
+	FROM @Table AS T
+	WHERE T.IdParent IS NULL
+
+	UNION ALL
+
+	SELECT
+		T.Id,
+		T.IdParent,
+		CTE.[Level] + 1 AS [Level]
+	FROM @Table AS T
+	JOIN CTE ON CTE.Id = T.IdParent
+)
+
+SELECT * FROM CTE ORDER BY [Level]
